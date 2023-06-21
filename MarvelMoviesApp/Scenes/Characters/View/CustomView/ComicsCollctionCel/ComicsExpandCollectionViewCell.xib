@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ComicsExpandCollectionViewCell" customModule="MarvelMoviesApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="244"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="120" height="244"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJT-K7-oIa">
+                        <rect key="frame" x="12" y="12" width="96" height="218"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="no_image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="iYF-J5-btn">
+                                <rect key="frame" x="0.0" y="0.0" width="96" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="oDC-Z9-tWd"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Captain Marvel (2019 - Present) sent)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jk3-1S-fMa">
+                                <rect key="frame" x="4" y="168" width="88" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="jk3-1S-fMa" secondAttribute="bottom" constant="14" id="JWD-Jk-PSN"/>
+                            <constraint firstItem="jk3-1S-fMa" firstAttribute="top" secondItem="iYF-J5-btn" secondAttribute="bottom" constant="8" id="MIW-ww-nZD"/>
+                            <constraint firstItem="jk3-1S-fMa" firstAttribute="leading" secondItem="mJT-K7-oIa" secondAttribute="leading" constant="4" id="P3a-Mz-tST"/>
+                            <constraint firstItem="iYF-J5-btn" firstAttribute="top" secondItem="mJT-K7-oIa" secondAttribute="top" id="RcN-8R-t6p"/>
+                            <constraint firstAttribute="trailing" secondItem="jk3-1S-fMa" secondAttribute="trailing" constant="4" id="SH2-yG-WFT"/>
+                            <constraint firstAttribute="trailing" secondItem="iYF-J5-btn" secondAttribute="trailing" id="SVR-LQ-KYz"/>
+                            <constraint firstItem="iYF-J5-btn" firstAttribute="leading" secondItem="mJT-K7-oIa" secondAttribute="leading" id="hqX-ks-jGf"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="mJT-K7-oIa" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="Erv-cQ-NX2"/>
+                <constraint firstAttribute="trailing" secondItem="mJT-K7-oIa" secondAttribute="trailing" constant="12" id="KEf-sI-qnY"/>
+                <constraint firstItem="mJT-K7-oIa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="t93-pK-VhY"/>
+            </constraints>
+            <size key="customSize" width="120" height="244"/>
+            <connections>
+                <outlet property="comicImage" destination="iYF-J5-btn" id="2hm-rn-WNv"/>
+                <outlet property="nameComicLabel" destination="jk3-1S-fMa" id="DWP-No-EkT"/>
+            </connections>
+            <point key="canvasLocation" x="-43.076923076923073" y="2.8436018957345972"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="no_image_placeholder" width="160" height="160"/>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

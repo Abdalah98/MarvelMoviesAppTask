@@ -20,10 +20,8 @@ final class CharactersVC: UIViewController {
     var isFetchingMore = false
     var expandedCellIndex = -1
     let activityIndicatorView = UIActivityIndicatorView(style: .medium)
-    
      var vm: CharactersViewModel!
 
-    
     
     // MARK: - Life Cycle
     override func viewDidLoad() {

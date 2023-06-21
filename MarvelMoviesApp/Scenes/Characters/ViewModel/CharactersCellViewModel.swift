@@ -13,9 +13,5 @@ struct CharactersCellViewModel{
     let name:String
     let id:Int
     let image: String
-    let copyRight:String
-    let seriesCount :String
-    let storiesCount:String
-    let comicsCount:String
     
 }

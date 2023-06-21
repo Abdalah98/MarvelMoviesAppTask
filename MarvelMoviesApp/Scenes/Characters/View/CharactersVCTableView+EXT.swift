@@ -36,6 +36,10 @@ extension CharactersVC : UITableViewDelegate, UITableViewDataSource{
         
         let cellVM = vm.getCellViewModel(at: indexPath)
         cell.charactersCellViewModel = cellVM
+        vm.bindDataArray { dataArray in
+            cell.results = dataArray
+            cell.collctionView.reloadData()
+        }
         return cell
     }
     
@@ -43,9 +47,13 @@ extension CharactersVC : UITableViewDelegate, UITableViewDataSource{
         if indexPath.row == expandedCellIndex {
             // Selected cell is already expanded, collapse it
             expandedCellIndex = -1
+
+
         } else {
             // Update the currently expanded cell index to the selected cell's index
             expandedCellIndex = indexPath.row
+            vm.userPressed(at: indexPath)
+
         }
         
         // Reload the selected row and the previously expanded row (if any)

@@ -7,8 +7,10 @@
 import Foundation
 import Moya
 
+
 enum MarvelAPI {
     case getCharacters(limit: Int, offset:Int)
+    case getComicsByID(id:String)
     case searchByName(name:String)
 }
 
@@ -21,6 +23,7 @@ extension MarvelAPI: TargetType {
     var path: String {
         switch self {
         case .getCharacters:  return "/characters"
+        case .getComicsByID(let id):  return "/characters/\(id)/comics"
         case .searchByName: return "/characters"
         }
     }
@@ -29,6 +32,7 @@ extension MarvelAPI: TargetType {
     var method: Moya.Method {
         switch self {
         case .getCharacters: return .get
+        case .getComicsByID: return .get
         case .searchByName: return .get
 
         }
@@ -52,6 +56,14 @@ extension MarvelAPI: TargetType {
             
             return .requestParameters(parameters: query, encoding: URLEncoding.default)
             
+        case .getComicsByID:
+            let query: [String: Any] = [
+                "apikey": Constant.publicKey,
+                "ts": Constant.timestamp,
+                "hash": Constant.hash,
+            ]
+            
+            return .requestParameters(parameters: query, encoding: URLEncoding.default)
             
         case .searchByName(let name):
             let query: [String: Any] = [

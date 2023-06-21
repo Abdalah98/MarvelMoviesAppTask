@@ -21,14 +21,20 @@ final class CharactersViewModel {
     var isLoadingMore = false
     var searchText: String = ""
     var offset = 0 // Store the offset as a property
+    var dataDidChange: (([Results]) -> Void)?
 
+    var resultsComics: [Results] = [] {
+        didSet {
+            dataDidChange?(resultsComics)
+        }
+    }
     
     var cellHeight: CGFloat {
             return 150.0
     }
     
     var expandedCellHeight: CGFloat {
-            return 300.0
+            return 420.0
     }
 
 
@@ -44,6 +50,8 @@ final class CharactersViewModel {
     init(marvelConnectors: MarvelConnectors) {
         self.marvelConnectors = marvelConnectors
         getCharacters()
+      //  getComicsInfo(id: "1012717" )
+
     }
 
 
@@ -88,20 +96,13 @@ final class CharactersViewModel {
         let  image          = resultsCharacters.thumbnail?.getPic()
         let  description    = resultsCharacters.description
         let  id             = resultsCharacters.id
-        let  copyRight      = "© 2023 MARVEL"
-        let  seriesCount    = resultsCharacters.series?.available ?? 0
-        let  storiesCount   = resultsCharacters.series?.available ?? 0
-        let  comicsCount    = resultsCharacters.comics?.available ?? 0
-
+       
         return CharactersCellViewModel(
             modified: date ?? "",
             description: description ?? "",
-            name: name ?? "" , id: id ?? 0 ,
-            image: image ?? "",
-            copyRight: copyRight,
-            seriesCount:String(seriesCount) ,
-            storiesCount:String(storiesCount),
-            comicsCount:String(comicsCount))
+            name: name ?? "" ,
+            id: id ?? 0 ,
+            image: image ?? "")
     }
 
     // fetch all Results Characters for loop it  and append data in createCellViewModel
@@ -176,11 +177,64 @@ final class CharactersViewModel {
             self.alertMessage = message
         }
     }
+    var cachedComicsInfo: [String: [Results]] = [:]
 
+    func getComicsInfo(id: String) {
+        if let cachedInfo = cachedComicsInfo[id] {
+            // Comics information is already cached, use the cached data
+            self.resultsComics = cachedInfo
+            // Update your view or trigger any necessary UI changes here
+            print("cachedInfo")
+        } else {
+            // Comics information is not cached, make an API call
+            marvelConnectors.getComicsInfo(id: id) { [weak self] getComicsInfo in
+                guard let self = self else { return }
+                if let results = getComicsInfo.data?.results {
+                    // Cache the comics information
+                    self.cachedComicsInfo[id] = results
+                    self.resultsComics = results
+                    print("UUNNcachedInfo")
+
+                }
+                // Update your view or trigger any necessary UI changes here
+            } onfailure: { [weak self] message in
+                guard let self = self else { return }
+                self.alertMessage = message
+                // Handle the failure or display an error message in your view
+            }
+        }
+    }
+
+//    func getComicsInfo(id:String){
+//
+//        //state = .loading
+//        marvelConnectors.getComicsInfo(id: id) {[weak self ] getComicsInfo in
+//
+//            guard let self = self else{return}
+//            self.resultsComics = getComicsInfo.data?.results ?? []
+//           // self.state = .populated
+//        } onfailure: {[weak self ]  message in
+//            guard let self = self else{return}
+//           // self.state = .error
+//            self.alertMessage = message
+//        }
+//    }
+    
+    func bindDataArray(completion: @escaping ([Results]) -> Void) {
+        dataDidChange = {  dataArray in
+            DispatchQueue.main.async {
+                completion(dataArray)
+            }
+        }
+    }
     // return when i selectedArticle cell get cell indexPath Item
     func userPressed( at indexPath: IndexPath ){
-        let request = self.resultsArray[indexPath.row]
-        self.selectedRequest = request
+        let character = self.resultsArray[indexPath.row]
+        self.selectedRequest = character
+        if let characterId = character.id {
+               getComicsInfo(id: String(characterId))
+           }
+        
     }
 
     func cancelSearch() {
